@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boom_</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            color: #FFFFFF;
+        }
+
+        .navbar {
+            padding: 5px 10px;
+            display: flex;
+        }
+
+        .navbar h2 {
+            margin: 0;
+        }
+
+        .spacer {
+            flex: 1;
+        }
+
+        #content {
+            margin: 10px;
+            height: calc(100vh - 100px);
+            overflow-y: auto;
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #boom {
+            background-color: transparent;
+            color: inherit;
+            border: none;
+            margin-left: 30px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #output {
+            display: none;
+            background-color: #f8f8f850;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+
+<body style="background-color: #0f0f0f;">
+    <div class="navbar">
+        <h2>Boom_</h2>
+        <select id="boom" onchange="changeFile(event)">
+            <option value="opr_shakti">opr_shakti</option>
+            <option value="smiling_buddha">smiling_buddha</option>
+            <option value="little_boy">little_boy</option>
+            <option value="tsar_bomba">tsar_bomba</option>
+        </select>
+        <span class="spacer"></span>
+        <div id="controls">
+            <span id="output"></span>
+            <button type="button" onclick="updateFile()">Save</button>
+        </div>
+    </div>
+    <div id="content" contenteditable="true"></div>
+    
+    <script type="text/javascript">
+        const fileContent = document.getElementById('content');
+        const output = document.getElementById('output');
+        let ALL_FILES = []
+        let fileName;
+
+        (function () {
+            getFiles();
+
+            document.addEventListener('keydown', e => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    // Prevent the Save dialog to open
+                    e.preventDefault();
+                    // Place your code here
+                    updateFile();
+                }
+            });
+        })();
+
+        function getFiles() {
+            fetch('/get_files', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+            })
+                .then(response => response.text())
+                .then(result => {
+                    ALL_FILES = JSON.parse(result);
+                    let params = new URLSearchParams(window.location.search);
+                    fileName = params.get('b');
+                    if (ALL_FILES.includes(fileName + '.txt')) {
+                        readFile(fileName);
+                        document.getElementById('boom').value = fileName;
+                    }
+                    else {
+                        window.location.replace(window.location.origin + '?b=opr_shakti')
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating file:', error);
+                });
+        }
+
+        function changeFile(event) {
+            window.location.replace(window.location.origin + '?b=' + event.target.value)
+        }
+
+        function readFile(file) {
+            fetch('/read?b=' + file, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/plain',
+                },
+            })
+                .then(response => response.text())
+                .then(result => {
+                    fileContent.innerText = result;
+                })
+                .catch(error => {
+                    console.error('Error updating file:', error);
+                });
+        }
+
+        function updateFile() {
+
+            const newContent = fileContent.innerText;
+
+            fetch('/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 'content': newContent, 'file': fileName }),
+            })
+                .then(response => response.text())
+                .then(result => {
+                    output.style.display = "inline";
+                    output.textContent = result;
+                    setTimeout(() => {
+                        output.style.display = "none";
+                    }, 1000);
+                })
+                .catch(error => {
+                    console.error('Error updating file:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
