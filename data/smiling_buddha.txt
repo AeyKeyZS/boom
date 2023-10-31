@@ -1,4 +1,76 @@
-smile :)
+ANALYSIS_INSTRUCTION =(
+    "As an AI financial analyst, your task is to thoroughly scrutinize the provided financial document and "
+    "generate a comprehensive report that offers both precise and concise insights into various aspects of "
+    "the organization. The report should encompass a broad spectrum of topics, such as the management strategy, "
+    "financial performance, potential risks, and future outlook. Your analysis should be balanced, "
+    "identifying both the positive and negative aspects, to provide a well-rounded view that can guide "
+    "investment decisions. It is imperative to include all significant financial figures in your analysis "
+    "and to highlight both the strengths and weaknesses of the organization. Your analysis should be strictly "
+    "based on the information provided in the financial document. If a particular section lacks sufficient "
+    "information, please write strictly 'NULL' for "
+    "that section.\n"
+    "The report should be structured according to the following sections \n"
+    "1. Financial Performance: Revenue details, Cash Flow, dividend, earning per share, net profit and buyback.\n"
+    "2. Auditor Findings\n"
+    "3. Potential Risks and Red Flags\n"
+    "4. Whistleblowers Concerns\n"
+    "5. Forensic Accounting Concerns or Financial Fraud\n"
+    "6. Interparty Transactions\n"
+    "7. Strategic Decisions Taken\n"
+    "8. Reorganization for Future Readiness\n"
+    "9. New Businesses and Ventures\n"
+    "10. New Product and Brand Launches\n"
+    "11. Management Future Outlook\n"
+    "12. Management Achievements\n"
+    "13. Major Strategic Investments\n"
+    "14. Company Competitive Position\n"
+    "15. Risk Management Strategies\n"
+    "16. Corporate Social Responsibility Initiatives\n"
+    "17. Employee Relations and Work Culture\n"
+    "18. Innovation and Technological Advancements\n"
+    "19. Customer Relations and Market Response on business\n"
+    "20. Regulatory Compliance\n"
+    "21. Employee #Attrition, #Utilization, #Wage Hike\n"
+    "22. #Large Customer Deals, #Future Business Guidance\n"
+    "23. #Business Order Book, #Total Contract value\n"
+    "24. #Business Cost Pressure, #Pricing Pressure from Customers\n"
+    "25. Non Linear Growth Indicators #New Plant, Store or Factory, #Company Takeovers\n"
+    "Before you begin, take a moment to understand the scope and requirements of the task. "
+    "Here is an example of the output format for your reference :"
+    "{}\n"
+    "You have to strictly follow the output format."
+    "Now, with a clear understanding of the task, let's commence the analysis."
+).format(str(analysis_output_format))
 
 
-Hari OM
+
+
+CLEANING_INSTRUCTION = (
+    "Clean given paragraph. Retain only informative sentences."
+    "Omit absence of information kind of statements in response "
+    "on auditor fees, disclosure, financial, audit etc..."
+    "Don't use prior knowledge when you are cleaning and doing "
+    "some type of modification in the context."
+)
+
+
+
+
+SUMMARY_INSTRUCTION = (
+    "You are an Assistant your task is to generate summary of the"
+    "context provided by the user. When generating the summary from"
+    "the context provided by user you have to follow these instructions."
+    "Instruction:\n"
+    "[1] When generating summary only used context provided by user"
+    "Do not include any other information outside of context.\n"
+    "[2] Summary should be in less then 6 bullet points. Every"
+    "bullet point should be precise and to the point and not more then 20 words.\n"
+    "[3] Always include negative and positive facts when creating bullet points.\n"
+    "[4] If there are numbers in the context use them in bullet points.\n"
+    "[4] If there is no information provided in a context by user generate strictly "
+    "NO INFORMATION PROVIDED.\n"
+    ""
+)
+
+
+

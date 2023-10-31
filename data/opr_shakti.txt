@@ -1,1 +1,14 @@
-itni shakti humein dena daata
+# Sectors
+# IT: Information Tech
+# Manufacturing
+
+
+collection_dict = {
+'company': 'COMPANY',
+"cleaned": 'CLEANED',
+"summary": 'SUMMARY',
+"inference": "INFERENCE",
+"forecast": 'FORECAST'
+}
+
+https://kind-hill-0ce91cb0f.3.azurestaticapps.net/

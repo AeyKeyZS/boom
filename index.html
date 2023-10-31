@@ -26,7 +26,8 @@
 
         #content {
             margin: 10px;
-            height: calc(100vh - 100px);
+            margin-bottom: 2px;
+            height: calc(100vh - 105px);
             overflow-y: auto;
             border: 1px solid white;
             border-radius: 5px;
@@ -40,37 +41,72 @@
             margin-left: 30px;
         }
 
-        button {
+        .btn-action {
             padding: 5px 10px;
             background-color: #f8f8f8;
             cursor: pointer;
             border-radius: 5px;
         }
 
+        .btn-menu {
+            padding: 5px 10px;
+            background-color: transparent;
+            color: #fff;
+            outline: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-menu.active{
+            background-color: #f8f8f850;
+        }
+
+        #controls{
+            position: relative;
+        }
+
         #output {
-            display: none;
+            /* display: none; */
+            position: absolute;
+            right: 110%;
             background-color: #f8f8f850;
             color: #FFFFFF;
+        }
+
+        #footer{
+            text-align: center;
         }
     </style>
 </head>
 
 <body style="background-color: #0f0f0f;">
     <div class="navbar">
-        <h2>Boom_</h2>
-        <select id="boom" onchange="changeFile(event)">
+        <!-- <select id="boom" onchange="changeFile(event)">
             <option value="opr_shakti">opr_shakti</option>
             <option value="smiling_buddha">smiling_buddha</option>
             <option value="little_boy">little_boy</option>
             <option value="tsar_bomba">tsar_bomba</option>
-        </select>
+        </select> -->
+        <h2>Boom_</h2>
+        <span class="spacer"></span>
+        <button id="btn-opr_shakti" class="btn-menu" onclick="changeFile(event)" value="opr_shakti">Opr Shakti</button>
+        <button id="btn-smiling_buddha" class="btn-menu" onclick="changeFile(event)" value="smiling_buddha">Smiling Buddha</button>
+        <button id="btn-little_boy" class="btn-menu" onclick="changeFile(event)" value="little_boy">Little Boy</button>
+        <button id="btn-tsar_bomba" class="btn-menu" onclick="changeFile(event)" value="tsar_bomba">Tsar Bomba</button>
         <span class="spacer"></span>
         <div id="controls">
-            <span id="output"></span>
-            <button type="button" onclick="updateFile()">Save</button>
+            <small id="output"></small>
+            <button type="button" class="btn-action" onclick="updateFile()">Save</button>
         </div>
     </div>
     <div id="content" contenteditable="true"></div>
+    <div id="footer">
+        <small>Save Ctrl+s</small>
+        |
+        <small>Refresh Ctrl+r</small>
+        |
+        <small> <a href="https://github.com/AeyKeyZS" target="_blank">Author</a> </small>
+    </div>
     
     <script type="text/javascript">
         const fileContent = document.getElementById('content');
@@ -87,6 +123,8 @@
                     e.preventDefault();
                     // Place your code here
                     updateFile();
+                } else if (e.altKey && e.key === '1'){
+                    alert("1")
                 }
             });
         })();
@@ -105,7 +143,8 @@
                     fileName = params.get('b');
                     if (ALL_FILES.includes(fileName + '.txt')) {
                         readFile(fileName);
-                        document.getElementById('boom').value = fileName;
+                        // document.getElementById('boom').value = fileName;
+                        document.getElementById("btn-"+fileName).classList.add('active');
                     }
                     else {
                         window.location.replace(window.location.origin + '?b=opr_shakti')

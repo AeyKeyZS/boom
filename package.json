@@ -1,4 +1,15 @@
 {
+  "name": "boom",
+  "version": "1.0.0",
+  "description": "An app to share text over your local network without internet.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js --host 0.0.0.0"
+  },
+  "keywords": [],
+  "author": "Akshay Kumar Gola",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.18.2"
   }
